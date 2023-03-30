@@ -3,30 +3,32 @@ const menus = [
   {
     title: 'Threads',
     to: '/threads',
+    prefixIcon: 'ic:round-comment',
   },
   {
     title: 'Direct Messages',
     to: '/messages',
+    prefixIcon: 'ic:round-chat-bubble-outline',
   },
   {
     title: 'Mentions and Reactions',
     to: '/mentions',
+    prefixIcon: 'ri:at-line',
   },
   {
     title: 'Drafts and sent',
     to: '/drafts',
+    prefixIcon: 'ri:draft-line',
   },
   {
     title: 'Saved items',
     to: '/saved',
+    prefixIcon: 'ri:bookmark-line',
   },
   {
     title: 'Slack Connect',
     to: '/connect',
-  },
-  {
-    title: 'Saved items',
-    to: '/saved',
+    prefixIcon: 'ic:round-people-outline',
   },
 ];
 
@@ -196,20 +198,23 @@ const apps = [
       <NuxtLink to="/" class="font-semibold text-white">
         Workspace Name
       </NuxtLink>
-      <button class="text-sm text-neutral-200">Add</button>
+      <button
+        aria-label="Add"
+        class="text-sm text-neutral-800 bg-white hover:bg-neutral-200 rounded-full w-7 h-7 grid place-items-center"
+      >
+        <Icon name="ri:add-line" size="20px" />
+      </button>
     </AppBar>
     <ScrollArea class="pb-20">
       <List>
-        <ListItem v-for="menu in menus" :key="menu.title" :to="menu.to">
-          {{ menu.title }}
+        <ListItem
+          v-for="{ title, ...menu } in menus"
+          :key="title"
+          v-bind="menu"
+        >
+          {{ title }}
         </ListItem>
-        <li>
-          <button
-            class="px-2 py-1.5 rounded-md text-neutral-400 hover:bg-neutral-800 text-sm block text-left"
-          >
-            More
-          </button>
-        </li>
+        <ListItem prefix-icon="ri:more-2-line"> More </ListItem>
       </List>
       <Separator />
       <List>
@@ -218,6 +223,7 @@ const apps = [
           v-for="channel in channels"
           :key="channel.name"
           :to="`/channels/${channel.id}`"
+          prefix-icon="ri:hashtag"
         >
           {{ channel.name }}
         </ListItem>
@@ -229,6 +235,7 @@ const apps = [
           v-for="message in messages"
           :key="message.id"
           :to="`/messages/${message.id}`"
+          prefix-icon="ri:user-fill"
         >
           {{ message.user }}
         </ListItem>
@@ -236,7 +243,12 @@ const apps = [
       <Separator />
       <List>
         <ListHeader>Apps</ListHeader>
-        <ListItem v-for="app in apps" :key="app.id" :to="`/apps/${app.id}`">
+        <ListItem
+          v-for="app in apps"
+          :key="app.id"
+          :to="`/apps/${app.id}`"
+          prefix-icon="ri:apps-fill"
+        >
           {{ app.name }}
         </ListItem>
       </List>
