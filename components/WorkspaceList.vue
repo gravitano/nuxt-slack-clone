@@ -32,7 +32,7 @@ const active = ref(1);
           <img
             :src="workspace.image"
             :alt="workspace.name"
-            class="w-10 h-10 rounded-lg"
+            class="w-10 h-10 rounded-lg hover:ring-4 hover:ring-white"
             :class="{
               'ring-4 ring-white': active === workspace.id,
             }"
